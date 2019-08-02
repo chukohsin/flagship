@@ -675,6 +675,9 @@ export class ZoomCarousel extends Component<ZoomCarouselProps, ZoomCarouselState
         centerMode={this.props.centerMode}
         style={this.props.fillContainer ? S.fullHeight : null}
         nextArrowOnBlur={this.props.nextArrowOnBlur}
+        containerWidthRatio={this.props.containerWidthRatio}
+        containerOverflowStyle={this.props.containerOverflowStyle}
+        contentContainerStyle={this.props.contentContainerStyle}
       />
     );
   }

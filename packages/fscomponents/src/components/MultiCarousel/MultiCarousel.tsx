@@ -69,6 +69,7 @@ export class MultiCarousel<ItemT> extends Component<MultiCarouselProps<ItemT>, M
   initialScrollX: number = 0;
   defaultPeekSize: number = 0;
   defaultItemsPerPage: number = 2;
+  defaultContainerWidthRatio: number = 1;
 
   private scrollView: RefObject<FlatList<ItemT>>;
 
@@ -141,7 +142,8 @@ export class MultiCarousel<ItemT> extends Component<MultiCarouselProps<ItemT>, M
   }
 
   handleContainerSizeChange = (e: any) => {
-    const containerWidth = e.nativeEvent.layout.width;
+    const containerWidthRatio = this.props.containerWidthRatio || this.defaultContainerWidthRatio;
+    const containerWidth = Math.floor(e.nativeEvent.layout.width * containerWidthRatio);
 
     this.setState({
       containerWidth,
@@ -310,7 +312,7 @@ export class MultiCarousel<ItemT> extends Component<MultiCarouselProps<ItemT>, M
       <Animated.View
         style={[
           this.props.style,
-          { opacity: this.state.opacity, overflow: 'hidden' }
+          { opacity: this.state.opacity, overflow: this.props.containerOverflowStyle || 'hidden' }
         ]}
       >
         <FlatList
@@ -327,6 +329,7 @@ export class MultiCarousel<ItemT> extends Component<MultiCarouselProps<ItemT>, M
           data={this.props.items}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
+          contentContainerStyle={this.props.contentContainerStyle}
         />
 
         {this.props.renderPageIndicator ? (
